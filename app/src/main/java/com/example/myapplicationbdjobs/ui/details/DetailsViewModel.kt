@@ -1,11 +1,14 @@
 package com.example.myapplicationbdjobs.ui.details
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.myapplicationbdjobs.api.models.app_model.AppTable
 import com.example.myapplicationbdjobs.api.models.details.DetailsResponse
 import com.example.myapplicationbdjobs.repository.AppRepository
+import com.google.gson.Gson
 import com.haroldadmin.cnradapter.NetworkResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -43,5 +46,27 @@ class DetailsViewModel @Inject constructor(private val appRepository: AppReposit
             }
         }
     }
+
+    fun addBookmarks(appTable: AppTable){
+        viewModelScope.launch {
+            appRepository.addBookmark(appTable)
+        }
+    }
+
+    fun getDbdata(){
+        viewModelScope.launch {
+            val res = appRepository.getDbData()
+            Log.e("sdhgfsdjh","now"+Gson().toJson(res))
+        }
+    }
+
+    fun check(id:Int){
+        viewModelScope.launch {
+            val res = appRepository.check(id)
+            Log.e("sdhgfsdjh","now"+res)
+        }
+    }
+
+
 
 }
